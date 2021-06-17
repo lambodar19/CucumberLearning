@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
         //features = {"C://Users//91900//IdeaProjects//CucumberLearning//Features//nop_Login.feature"},
         features = {".//Features/nop_Login.feature"},
         glue = {"stepDefinitions"},
-        dryRun = true,
+        dryRun = false,
         plugin = {"pretty",
                  "html:target/cucumber-reports"},
         monochrome = true

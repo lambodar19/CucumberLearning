@@ -36,6 +36,19 @@ public class AddCustomerPage {
     @FindBy(id="lastName")
     WebElement lastNameField;
 
+    @FindBy(xpath= "//label[contains(text(),'Male')]//preceding-sibling::input")
+    WebElement radioMale;
+
+    @FindBy(id= "DateOfBirth")
+    WebElement dobField;
+
+    @FindBy(id= "Company")
+    WebElement companyField;
+
+    @FindBy(id= "AdminComment")
+    WebElement adminCommentField;
+
     @FindBy(xpath="(//button[@type='submit'])[2]")
     WebElement saveButton;
+
 }
