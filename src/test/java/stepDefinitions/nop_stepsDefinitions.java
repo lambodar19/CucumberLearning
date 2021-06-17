@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pageObjects.AddCustomerPage;
 import pageObjects.LoginPage;
+import pageObjects.SearchCustomerPage;
 
 public class nop_stepsDefinitions extends BaseClass{
 
@@ -16,6 +17,7 @@ public class nop_stepsDefinitions extends BaseClass{
         System.setProperty("webdriver.chrome.driver","./Drivers/chromedriver.exe");
         driver = new ChromeDriver();
         loginPage= new LoginPage(driver);
+        searchCustomerPage = new SearchCustomerPage(driver);
     }
     @When("user opens the URL {string}")
     public void user_opens_the_url(String url) {
@@ -109,4 +111,25 @@ public class nop_stepsDefinitions extends BaseClass{
     Assert.assertTrue(driver.findElement(By.tagName("body"))
             .getText().contains("The new customer has been added successfully."));
     }
+
+    @When("Enter Customer Email")
+    public void enter_customer_email() throws InterruptedException {
+        searchCustomerPage = new SearchCustomerPage(driver);
+        searchCustomerPage.setSearchEmailField("victoria_victoria@nopCommerce.com");
+        Thread.sleep(5000);
+
+    }
+
+    @When("Click on Search Button")
+    public void click_on_search_button() throws InterruptedException {
+        searchCustomerPage.clickSearchButton();
+        Thread.sleep(3000);
+    }
+
+    @Then("User should be found in the search table")
+    public void user_should_be_found_in_the_search_table() {
+        boolean status= searchCustomerPage.searchEmailInTable("victoria_victoria@nopCommerce.com");
+        Assert.assertEquals(true,status);
+    }
+
 }
