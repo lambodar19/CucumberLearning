@@ -2,12 +2,13 @@ package stepDefinitions;
 
 import io.cucumber.java.en.*;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pageObjects.AddCustomerPage;
 import pageObjects.LoginPage;
 
 public class nop_stepsDefinitions extends BaseClass{
-
 
 
     @Given("User launches the chrome browser")
@@ -57,49 +58,55 @@ public class nop_stepsDefinitions extends BaseClass{
 
     @Then("User can view Dashboard")
     public void user_can_view_dashboard() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        addCustomerPage = new AddCustomerPage(driver);
+        Assert.assertEquals("Dashboard / nopCommerce administration",addCustomerPage.getPageTitle());
     }
 
     @When("User clicks on Customer Menu")
     public void user_clicks_on_customer_menu() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        addCustomerPage.clickCustomerMenuItem();
     }
 
     @When("Clicks on Customer Menu Item")
-    public void clicks_on_customer_menu_item() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void clicks_on_customer_menu_item() throws InterruptedException {
+        addCustomerPage.clickCustomerSubMenuItem();
+        Thread.sleep(3000);
     }
 
     @When("Clicks on Add New Button")
-    public void clicks_on_add_new_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void clicks_on_add_new_button() throws InterruptedException {
+        addCustomerPage.clickAddNewCustomer();
+        Thread.sleep(3000);
     }
 
     @Then("User can view Add Customer Page")
     public void user_can_view_add_customer_page() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    Assert.assertEquals("Add a new customer / nopCommerce administration",addCustomerPage.getPageTitle());
     }
 
+    //Enters data in all required field
     @When("User enters Customer Info")
     public void user_enters_customer_info() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        String email = randomStringGenerator()+"@gmail.com";
+        addCustomerPage.setEmailField(email);
+        addCustomerPage.setPasswordField("Paswef");
+        addCustomerPage.setFirstNameField("Rakesh");
+        addCustomerPage.setLastNameField("Singh");
+        addCustomerPage.selectGender();
+        addCustomerPage.setDobField("01/01/1993");
+        addCustomerPage.setCompanyField("Cognizant");
+
     }
 
     @When("Clicks on Save Button")
-    public void clicks_on_save_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void clicks_on_save_button() throws InterruptedException {
+        addCustomerPage.clickSave();
+        Thread.sleep(3000);
     }
 
     @Then("User can view confirmation message {string}")
-    public void user_can_view_confirmation_message(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void user_can_view_confirmation_message(String message) {
+    Assert.assertTrue(driver.findElement(By.tagName("body"))
+            .getText().contains("The new customer has been added successfully."));
     }
 }
